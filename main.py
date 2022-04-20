@@ -1,65 +1,74 @@
-#1
-a = 5
-b = 3
-c = 4.5
-d = 2.43
-e = "napis"
-f = 'alamakota'
-g = True
-h = False
-print(a,b,c,d,e,f,g,h)
-
-#2
-a = 6
-b = 3
-print(a+b,a-b,a*b,a/b)
-
-#3
-a = input("Podaj operator: ")
-b,c = 8,4
-print(b,a,c,"=")
-if a == '+':
-    print(b + c)
-elif a == '-':
-    print(b - c)
-elif a == '*':
-    print(b * c)
-elif a == '/':
-    print(b / c)
-elif a == '**':
-    print(b ** c)
-elif a == '%':
-    print(b % c)
-else:
-    print("Bledny znak")
-
-#5
-a = "MIŁOSZ"
-b = "RUSZCZYŃSKI"
-
-a = a.capitalize()
-b = b.capitalize()
-
-print(a,b)
-
-#6
-a = 'la la la'
-b = a.count('la')
-print(b)
-
-#7
-a = 'Miłosz'
-print(a[1],a[-1])
-
-#8
-a = 'la la la'
-b = a.split()
-print(b)
-
-#9
-a = "alamakota"
-b = 4.6
-c = 0x5345
-print(type(a),type(b),type(c))
+import numpy as np
+import pandas as pd
 
 
+s = pd.Series([1, 3 ,5.5, np.nan, 'a'])
+# print(s)
+
+s1 = pd.Series([10, 12, 8, 14], index=['a', 'b', 'c', 'd'])
+# print(s1)
+
+dane = {'Kraj': ['Belgia', 'Indie', 'Brazylia'],
+        'Stolica': ['Bruksela', 'New Delhi', 'Brasilia'],
+        'Populacja': [11190846, 1303171035, 207847528]}
+df = pd.DataFrame(dane)
+# print(df)
+#
+# daty = pd.date_range('20220420', periods=5)
+# df = pd.DataFrame(np.random.randn(5, 4), index=daty, columns=list('ABCD'))
+# print(df)
+#
+# df = pd.read_csv('iris.csv', header=0, sep=',', decimal='.')
+# print(df)
+# df.to_csv('nowy.csv', index=False)
+#
+# xlsx = pd.ExcelFile('1.xlsx')
+# df = pd.read_excel(xlsx, header=0)
+# print(df)
+# df.to_excel('nowy.xlsx', sheet_name='Arkusz1', index=False)
+
+print(s1['a'])
+print(s1.a)
+
+print(df['Populacja'])
+
+print('kraj: '+df.Kraj)
+
+print(df.iloc[[0]])
+
+print(df.head(1))
+
+print(df.tail(1))
+
+print(s1[s1 > 10])
+print(s1.where(s1 > 10, 'element nie spelnia warunku'))
+seria = s1.copy()
+seria.where(seria > 10, 'element nie spelnia warunku', inplace=True)
+print(seria)
+
+print(s1[~(s1 > 10)])
+print(s1[(s1 < 13) & (s1 > 8)])
+
+print(df[df['Populacja'] > 1200000000])
+print(df[((df.Populacja > 1000000) & (df.index.isin([0, 2])))])
+
+szukaj = ['Belgia', 'Brasilia']
+print(df.isin(szukaj))
+
+s1['e'] = 15
+print(s1)
+
+df.loc[3] = 'nowy element'
+df.loc[4] = ['Polska', 'Warszawa', 38675467]
+print(df)
+
+df.drop(3, inplace=True)
+print(df)
+df['Kontynent'] = ['Europa', 'Azja', 'Ameryka Południowa', 'Europa']
+print(df)
+
+print(df.sort_values(by='Kraj'))
+
+grupa = df.groupby(by='Kontynent')
+print(grupa.get_group('Europa'))
+print(df.groupby('Kontynent').agg({'Populacja': ['sum']}))
