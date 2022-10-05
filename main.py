@@ -1,74 +1,147 @@
-import numpy as np
-import pandas as pd
+#2a
+i = 1
+lista = []
+while i<=10:
+    lista.append(i)
+    i += 1
+print(lista)
+
+#2b
+i = 0
+lista = []
+while i<=20:
+    lista.append(i)
+    i += 2
+print(lista)
+
+#2c
+i = 1
+p = i
+lista = []
+while i<=10:
+    lista.append(p)
+    i += 1
+    p = i ** 2
+print(lista)
+
+#2d
+i = 1
+p = 0
+lista = []
+while i<=10:
+    lista.append(p)
+    i += 1
+print(lista)
+
+#2e
+i = 1
+p = 0
+lista = []
+while i<=10:
+    if i%2==0:
+        lista.append(p+1)
+    else:
+        lista.append(p)
+    i += 1
+print(lista)
+
+#2f
+i = 1
+p = 0
+lista = []
+while i<=10:
+    if p>4:
+        p = 0
+    lista.append(p)
+    p += 1
+    i += 1
+print(lista)
+
+#3
+lista = [1, 3, 6, -3 ,2 ,1, -6]
+
+def ile_ujemnych(l):
+    suma = 0
+    for el in l:
+        if el < 0:
+            suma += 1
+    return suma
+
+print(ile_ujemnych(lista))
+
+def iloczyn(l):
+    il = 1
+    for el in l:
+         il *= el
+    return il
+
+print(iloczyn(lista))
+
+def minmax(l):
+    maks = float('-inf')
+    min = float('inf')
+    for el in l:
+        if el < min:
+            min = el
+        elif el > maks:
+            maks = el
+        mm = [min, maks]
+    return mm
+
+print(minmax(lista))
+
+def sp(l):
+    suma = 0
+    for el in l:
+        if el % 2 == 0:
+            suma += el
+        else:
+            suma -= el
+    return suma
+
+print(sp(lista))
+
+a = int(input('Podaj liczbe: '))
+i = 0
+
+for el in lista:
+    if el == a:
+        i = 1
+        break
+if i != 1:
+    lista.append(a)
+print(lista)
+
+lista = []
+i = 2
+
+while i<=10000:
+    lista.append(i)
+    i += 1
+
+print(lista)
 
 
-s = pd.Series([1, 3 ,5.5, np.nan, 'a'])
-# print(s)
+#9a
 
-s1 = pd.Series([10, 12, 8, 14], index=['a', 'b', 'c', 'd'])
-# print(s1)
+lista = [1,4,9,16,25]
 
-dane = {'Kraj': ['Belgia', 'Indie', 'Brazylia'],
-        'Stolica': ['Bruksela', 'New Delhi', 'Brasilia'],
-        'Populacja': [11190846, 1303171035, 207847528]}
-df = pd.DataFrame(dane)
-# print(df)
-#
-# daty = pd.date_range('20220420', periods=5)
-# df = pd.DataFrame(np.random.randn(5, 4), index=daty, columns=list('ABCD'))
-# print(df)
-#
-# df = pd.read_csv('iris.csv', header=0, sep=',', decimal='.')
-# print(df)
-# df.to_csv('nowy.csv', index=False)
-#
-# xlsx = pd.ExcelFile('1.xlsx')
-# df = pd.read_excel(xlsx, header=0)
-# print(df)
-# df.to_excel('nowy.xlsx', sheet_name='Arkusz1', index=False)
+a = lista[0]
+lista[0] = lista[-1]
+lista[-1] = a
+print(lista)
 
-print(s1['a'])
-print(s1.a)
+#9b
 
-print(df['Populacja'])
+lista = [1,4,9,16,25]
+a = 0
 
-print('kraj: '+df.Kraj)
+while a < len(lista):
+    b = lista[a]
+    lista[a] = lista[a-1]
+print(lista)
+#10
 
-print(df.iloc[[0]])
-
-print(df.head(1))
-
-print(df.tail(1))
-
-print(s1[s1 > 10])
-print(s1.where(s1 > 10, 'element nie spelnia warunku'))
-seria = s1.copy()
-seria.where(seria > 10, 'element nie spelnia warunku', inplace=True)
-print(seria)
-
-print(s1[~(s1 > 10)])
-print(s1[(s1 < 13) & (s1 > 8)])
-
-print(df[df['Populacja'] > 1200000000])
-print(df[((df.Populacja > 1000000) & (df.index.isin([0, 2])))])
-
-szukaj = ['Belgia', 'Brasilia']
-print(df.isin(szukaj))
-
-s1['e'] = 15
-print(s1)
-
-df.loc[3] = 'nowy element'
-df.loc[4] = ['Polska', 'Warszawa', 38675467]
-print(df)
-
-df.drop(3, inplace=True)
-print(df)
-df['Kontynent'] = ['Europa', 'Azja', 'Ameryka Południowa', 'Europa']
-print(df)
-
-print(df.sort_values(by='Kraj'))
-
-grupa = df.groupby(by='Kontynent')
-print(grupa.get_group('Europa'))
-print(df.groupby('Kontynent').agg({'Populacja': ['sum']}))
+def equals(a, b):
+    if len(a) != len(b):
+        return "Inna"
